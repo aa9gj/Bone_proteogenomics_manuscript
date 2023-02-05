@@ -1,7 +1,8 @@
-# Bone_proteogenomics_manuscript
-Code accompanying the manuscript
+Code accompanying the manuscript "Long read proteogenomics to connect disease-associated sQTLs to the protein isoform effectors in disease"
 
-Step0_notes
+The data required is found at DOI 10.5281/zenodo.7603851
+
+Step 0: Generation of disease relevant sQTL associations
 1) Download sQTL V8 data for all associations from GTEx using https://console.cloud.google.com/storage/browser/gtex-resources 
 
 2) Download latest eBMD GWAS summary stats from GEFOS using http://www.gefos.org/?q=content/data-release-2018
