@@ -1,0 +1,30 @@
+# CRAN
+install.packages("devtools", dependencies = T)
+library("devtools")
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager", dependencies = T)
+install.packages("tidyverse", dependencies = T)
+install.packages("data.table", dependencies = T)
+install.packages("RColorBrewer", dependencies = T)
+install.packages("VennDiagram", dependencies = T)
+install.packages("pheatmap", dependencies = T)
+install.packages("remote", dependencies = T)
+install.packages("jsonlite", dependencies = T)
+install.packages("purrr", dependencies = T)
+install.packages("httr", dependencies = T)
+install.packages("xml2", dependencies = T)
+install.packages("dplyr", dependencies = T)
+
+# Bioconductor
+BiocManager::install("liftOver")
+BiocManager::install("plyranges")
+BiocManager::install("GenomicRanges")
+BiocManager::install("rtracklayer")
+BiocManager::install("DESeq2")
+BiocManager::install("biomaRt")
+
+# Other
+install_github('lukaswallrich/timesaveR')
+install_github("oliviasabik/RACER") 
+install_github("dzhang32/ggtranscript")
+install_github("openanalytics/gread")
