@@ -1,0 +1,6 @@
+# ignore large genomic files
+*.gtf
+*.GTF
+*.BED
+*.GFF
+*.gff
