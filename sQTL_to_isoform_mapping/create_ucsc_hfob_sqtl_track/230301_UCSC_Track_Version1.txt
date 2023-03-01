@@ -1,0 +1,1 @@
+http://www.genome.ucsc.edu/s/gsheynkman/hg38_BMD_sQTL_hFOB_PacBio_isoform_ref
