@@ -2,6 +2,9 @@
 
 Gloria Sheynkman and Arby Abood creating a UCSC browser track that would display all the hFOB transcript/protein isoforms as well as a track of the colocalized sQTLs.
 
+Started a UCSC Sessions: http://www.genome.ucsc.edu/s/gsheynkman/hg38_hFOB_sQTL_isoform_Resource
+
+
 Track elements:
 
 GENCODE
