@@ -12,7 +12,7 @@ Downloaded GENCODE comprehensive GTF version 38: https://www.gencodegenes.org/hu
 
 hFOB transcriptome/proteome
 Received GTF of the hFOB CDS from Arby 230301.
-`CDS.gtf` File contains 2045 isoforms from 445 genes, in which there is an isoform of that gene with an exact match to a colocalizing sQTL.
+`exact_match_LRP_refined.gtf` File contains 2029 isoforms from 441 genes, in which there is an isoform of that gene with an exact match to a colocalizing sQTL.
 
 colocalized sQTLs
 BED file that Arby derived that contains a list of junction coordinates from colocalization analysis of BMD GWAS against 49 GTEX sQTLs. This file has annotations in terms of source tissue/coloc. probability, etc.
