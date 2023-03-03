@@ -1,0 +1,70 @@
+## read in gtf file from the LRP pipeline
+LRP_gtf <- as.data.frame(rtracklayer::import("/Users/aa9gj/Documents/BPG_project/Materials_for_paper/aug2022_reanalysis/Biosurfer_input_for_Mayank/gtf_and_counts_not_needed_anymore/hfob_CDS_with_transcripts_min30orf_with_cds.gtf"))
+LRP_gtf <- separate(LRP_gtf, "transcript_id", c("gene_name", "transcript_id", "extra_column"), sep = "\\|")
+LRP_gtf <- LRP_gtf[, c(1:7, 11:12)]
+colnames(LRP_gtf) <- c("seqnames", "CDS_start", "CDS_end", "CDS_width", "CDS_strand", "CDS_source","CDS_type", "CDS_gene_name", "CDS_transcript_id")
+
+## Keep only genes that passed thresholds in hfob
+LRP_gtf_annot <- inner_join(criteria1_3, LRP_gtf, by = c("gene_name" = "CDS_gene_name"))
+
+## Create the relevant ORFs for genes with coloc sqtl
+LRP_gtf_annot_coloc <- inner_join(exact_overlap, LRP_gtf, by = c("gene_name" = "CDS_gene_name"))
+
+## Match the pb_acc ids rather than pb_base ids. Get this file from LRP refined step
+refined_cds <- fread("/Users/aa9gj/Documents/BPG_project/Materials_for_paper/aug2022_reanalysis/Biosurfer_input_for_Mayank/hfobs_att2_orf_refined.tsv")
+threshold_genes <- as.data.frame(unique(criteria1_3$gene_name))
+colnames(threshold_genes) <- "gene"
+refined_cds_filtered <- inner_join(refined_cds, threshold_genes, by = "gene")
+refined_fixed <- inner_join(refined_cds_filtered, LRP_gtf_annot_coloc, by = c("base_acc" = "CDS_transcript_id"))
+## get exact overlap isoform IDs and get their ORF coordinates
+target_transcripts <- as.data.frame(unique(exact_overlap$transcript_id))
+colnames(target_transcripts) <- "transcript_id"
+
+new_gtf <- list()
+for (i in seq_along(target_transcripts$transcript_id)) {
+  new_gtf[[i]] <- refined_fixed[grep(paste0("\\b",target_transcripts$transcript_id[i],"\\b"), refined_fixed1$pb_accs),]
+  new_gtf[[i]]$target_transcript <- target_transcripts$transcript_id[i]
+}
+
+new_gtf_df <- do.call("rbind", new_gtf)
+write.table(new_gtf_df, "/Users/aa9gj/Documents/BPG_project/new_gtf_df.txt", quote = F, row.names = F)
+new_gtf_df_viz <- new_gtf_df[,c(21:25, 27:35)]
+colnames(new_gtf_df_viz)[7] <- "seqnames"
+colnames(new_gtf_df_viz)[14] <- "transcript_id"
+export(new_gtf_df_viz, "/Users/aa9gj/Documents/BPG_project/new_gtf_file_with_CDS", format = 'gtf')
+
+## Get input data needed to run NMD and truncation
+## get genes that show up
+genes_for_NMD <- as.data.frame(unique(new_gtf_df$gene_name))
+colnames(genes_for_NMD) <- "gene_name"
+
+genes_for_NMD <- criteria1_3[which(criteria1_3$gene_name %in% genes_for_NMD$gene_name),]
+isoforms_for_NMD <- as.data.frame(unique(new_gtf_df$target_transcript))
+colnames(isoforms_for_NMD) <- "isoform_name"
+
+NMD_not_containing <- genes_for_NMD[which(!(genes_for_NMD$rn %in% isoforms_for_NMD$isoform_name)),]
+length(unique(NMD_not_containing$rn))
+NMD_not_containing_abund <- NMD_not_containing[,1:12]
+NMD_contining <- genes_for_NMD[which(genes_for_NMD$rn %in% isoforms_for_NMD$isoform_name),]
+#get abundance values
+NMD_contining_abund <- NMD_contining[,1:12]
+
+write.table(NMD_contining_abund, "/Users/aa9gj/Documents/BPG_project/NMD_containing_abund.tsv", quote = F, row.names = F)
+write.table(NMD_not_containing_abund, "/Users/aa9gj/Documents/BPG_project/NMD_not_containing_abund.tsv", quote = F, row.names = F)
+
+## Get the gtf file for those without an exact match 
+non_target_transcripts <- as.data.frame(unique(NMD_not_containing$rn))
+colnames(non_target_transcripts) <- "non_target_transcripts"
+new_gtf <- list()
+for (i in seq_along(non_target_transcripts$non_target_transcripts)) {
+  new_gtf[[i]] <- refined_fixed[grep(paste0("\\b",non_target_transcripts$non_target_transcripts[i],"\\b"), refined_fixed$pb_accs),]
+  new_gtf[[i]]$non_target_transcript <- non_target_transcripts$non_target_transcripts[i]
+}
+new_gtf_df <- do.call("rbind", new_gtf)
+new_gtf_df[grep("OS9", new_gtf_df$gene_name),]
+length(unique(new_gtf_df$gene_name))
+new_gtf_df_viz <- new_gtf_df[,c(21:25, 27:35)]
+colnames(new_gtf_df_viz)[7] <- "seqnames"
+colnames(new_gtf_df_viz)[14] <- "transcript_id"
+
+export(new_gtf_df_viz, "/Users/aa9gj/Desktop/non_exact_CDS", format = 'gtf')
