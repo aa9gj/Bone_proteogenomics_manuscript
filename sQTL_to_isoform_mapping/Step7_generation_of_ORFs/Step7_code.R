@@ -1,20 +1,12 @@
 ###########################################################################
 ###########################################################################
 ###                                                                     ###
-###                LRP predicted CDS hfob                               ###     
+###                LRP predicted CDS hfob (needs to be updated as of March 7th                               ###     
 ### 								                                                    ###
 ###########################################################################
 ###########################################################################
 LRP_gtf <- as.data.frame(rtracklayer::import("/Users/aa9gj/Documents/BPG_project/hfob_CDS_with_transcripts_min30orf_with_cds.gtf"))
-# LRP_gtf_CDS <- filter(LRP_gtf, type == "transcript" | type == "CDS")
-# LRP_gtf_CDS <- separate(LRP_gtf_CDS, "transcript_id", c("gene_name", "transcript_id", "extra_column"), sep = "\\|")
-# LRP_gtf_CDS <- LRP_gtf_CDS[, c(1:7, 11:12)]
-# colnames(LRP_gtf_CDS) <- c("seqnames", "CDS_start", "CDS_end", "CDS_width", "CDS_strand", "CDS_source","CDS_type", "CDS_gene_name", "transcript_id")
 
-# LRP_gtf_CDS_annot <- inner_join(criteria1_3, LRP_gtf_CDS, by = c("gene_name" = "CDS_gene_name"))
-# length(unique(LRP_gtf_CDS_annot$gene_name))
-# LRP_gtf_CDS_annot_coloc <- inner_join(exact_overlap, LRP_gtf_CDS, by = c("gene_name" = "CDS_gene_name"))
-# length(unique(LRP_gtf_CDS_annot_coloc$gene_name))
 
 # Do this without getting rid of the exons
 LRP_gtf <- separate(LRP_gtf, "transcript_id", c("gene_name", "transcript_id", "extra_column"), sep = "\\|")
