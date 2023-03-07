@@ -6,9 +6,9 @@
 ###########################################################################
 ###########################################################################
 
-event_with_effect_size <- fread("/Users/aa9gj/Documents/BPG_project/Materials_for_paper/too_long_to_generate_files/event_with_effect_size")
+event_with_effect_size <- fread("event_with_effect_size")
 event_with_effect_size <- separate(event_with_effect_size, phenotype_id, c("chr", "start", "end", "cluster", "gene_id"), sep = ":")
-gencode_v26 <- as.data.frame(rtracklayer::import('/Users/aa9gj/Documents/BPG_project/Materials_for_paper/gencode.v26.annotation.gtf'))
+gencode_v26 <- as.data.frame(rtracklayer::import('gencode.v26.annotation.gtf'))
 gencode_v26 <- filter(gencode_v26, type == "gene", gene_type == "protein_coding")
 gencode_v26 <- gencode_v26[,c("gene_id", "gene_name")]
 event_with_effect_size <- left_join(event_with_effect_size, gencode_v26, by = "gene_id")
@@ -19,7 +19,7 @@ events_hfob_coloc <- inner_join(exact_overlap, event_with_effect_size, by = "eve
 
 # Now create the SNPs and their LD proxy (example here is for chr22, run a loop for all chromosomes)
 chr22_lead_sqtl <- dplyr::filter(events_hfob_coloc, chr == "chr22")
-chr22_bed <- fread("/Users/aa9gj/Documents/BPG_project/SNP_bed/chr22")
+chr22_bed <- fread("SNP_bed/chr22")
 chr22_lead_sqtl_pos <- inner_join(chr22_bed, chr22_lead_sqtl, by = c("V4" = "V7"))
 chr22_sqtl_and_LD <- list()
 for (i in 1:nrow(chr22_lead_sqtl_pos)) {
@@ -36,13 +36,13 @@ myFun <- function(data) {
   cbind(data[!ListCols], t(apply(data[ListCols], 1, unlist)))
 }
 chr22_sqtl_and_LD_df <- myFun(chr22_sqtl_and_LD_df)
-write.table(chr22_sqtl_and_LD_df, "/Users/aa9gj/Documents/BPG_project/chr_sqtl_ld/chr22_sqtl_and_ld_df", row.names = F, quote = F)
+write.table(chr22_sqtl_and_LD_df, "chr22_sqtl_and_ld_df", row.names = F, quote = F)
 chr22_sqtl_and_LD_df <- filter(chr22_sqtl_and_LD_df, r2 >= 0.80)
 chr22_sqtl_no_snps_LD <- as.data.frame(chr22_lead_sqtl_pos[which(!(chr22_lead_sqtl_pos$V4 %in% chr22_sqtl_and_LD_df$variation1)),])
 
 ## overlap with introns for 
 chr22_lead_sqtl <- dplyr::filter(events_hfob_coloc, chr == "chr22")
-chr22_sqtl_and_LD_df <- fread("/Users/aa9gj/Documents/BPG_project/chr_sqtl_ld/chr22_sqtl_and_ld_df")
+chr22_sqtl_and_LD_df <- fread("chr22_sqtl_and_ld_df")
 chr22_sqtl_and_LD_df <- filter(chr22_sqtl_and_LD_df, r2 >= 0.80)
 chr22_sqtl_no_snps_LD <- as.data.frame(chr22_lead_sqtl[which(!(chr22_lead_sqtl$V7 %in% chr22_sqtl_and_LD_df$variation1)),])
 chr22_lead_no_LD <- as.data.frame(chr22_sqtl_no_snps_LD[,"V7"])
@@ -95,7 +95,7 @@ chr22_proxy_overlap <- as.data.frame(sqtl_overlap_introns(chr22_proxy_wo_overlap
 
 ##create introns from sqanti gtf file for ssa, ssd overlaps
 
-sqanti_gtf <- read_format("/Users/aa9gj/Documents/BPG_project/Materials_for_paper/aug2022_reanalysis//SQANTI3_results_full_corrected_chr_only.gtf")
+sqanti_gtf <- read_format("SQANTI3_results_full_corrected_chr_only.gtf")
 isoforms_wanted <- as.data.frame(exact_overlap[, "transcript_id"])
 colnames(isoforms_wanted) <- "transcript_id"
 sqanti_gtf_intron <- construct_introns(sqanti_gtf, update = TRUE)[]
@@ -115,14 +115,14 @@ ssa_coord_gr <- makeGRangesFromDataFrame(ssa_coord, keep.extra.columns = TRUE,
                                          start.field = "ssa_start", end.field = "ssa_end", seqnames.field = "seqnames", ignore.strand = F)
 
 chr22_lead_sqtl <- dplyr::filter(events_hfob_coloc, chr == "chr22")
-chr22_sqtl_and_LD_df <- fread("/Users/aa9gj/Documents/BPG_project/chr_sqtl_ld/chr22_sqtl_and_ld_df")
+chr22_sqtl_and_LD_df <- fread("chr22_sqtl_and_ld_df")
 chr22_sqtl_and_LD_df <- filter(chr22_sqtl_and_LD_df, r2 >= 0.80)
 chr22_sqtl_no_snps_LD <- as.data.frame(chr22_lead_sqtl[which(!(chr22_lead_sqtl$V7 %in% chr22_sqtl_and_LD_df$variation1)),])
 chr22_lead_no_LD <- as.data.frame(chr22_sqtl_no_snps_LD[,"V7"])
 colnames(chr22_lead_no_LD) <- "rsid"
 chr22_lead_no_LD <- as.data.frame(unique(chr22_lead_no_LD$rsid))
 colnames(chr22_lead_no_LD) <- "rsid"
-chr22_bed <- fread("/Users/aa9gj/Documents/BPG_project/SNP_bed/chr22")
+chr22_bed <- fread("SNP_bed/chr22")
 
 chr22_sqtl_LD_pos <- inner_join(chr22_bed, chr22_sqtl_and_LD_df, by = c("V4" = "variation2"))
 chr22_lead_LD_pos <- chr22_sqtl_LD_pos[,"variation1"]
@@ -175,7 +175,7 @@ ssa_hits_part3
 ### # let's do enrichment analysis 
 ## get the lead sQTL and their LD and their positions
 chr22_lead_sqtl <- dplyr::filter(events_hfob_coloc, chr == "chr22")
-chr22_sqtl_and_LD_df <- fread("/Users/aa9gj/Documents/BPG_project/chr_sqtl_ld/chr22_sqtl_and_ld_df")
+chr22_sqtl_and_LD_df <- fread("chr22_sqtl_and_ld_df")
 chr22_sqtl_and_LD_df <- filter(chr22_sqtl_and_LD_df, r2 >= 0.80)
 chr22_sqtl_no_snps_LD <- as.data.frame(chr22_lead_sqtl[which(!(chr22_lead_sqtl$V7 %in% chr22_sqtl_and_LD_df$variation1)),])
 chr22_lead_no_LD <- as.data.frame(chr22_sqtl_no_snps_LD[,"V7"])
@@ -183,7 +183,7 @@ colnames(chr22_lead_no_LD) <- "rsid"
 chr22_lead_no_LD <- as.data.frame(unique(chr22_lead_no_LD$rsid))
 colnames(chr22_lead_no_LD) <- "rsid"
 
-chr22_bed <- fread("/Users/aa9gj/Documents/BPG_project/SNP_bed/chr22")
+chr22_bed <- fread("SNP_bed/chr22")
 chr22_sqtl_LD_pos <- inner_join(chr22_bed, chr22_sqtl_and_LD_df, by = c("V4" = "variation2"))
 chr22_lead_LD_pos <- chr22_sqtl_LD_pos[,"variation1"]
 chr22_lead_LD_pos <- as.data.frame(unique(chr22_lead_LD_pos$variation1))
@@ -204,9 +204,9 @@ chr22 <- rbind(chr22, chr22_proxy_pos[,1:4])
 rm(chr22_bed)
 rm(chr22_lead_LD_pos)
 rm(chr22_lead_no_LD_pos)
-write.table(chr22, "/Users/aa9gj/Documents/BPG_project/test_enrichment_in_r/lead_ld_position_by_chr/chr22", row.names = F, quote = F)
+write.table(chr22, "lead_ld_position_by_chr/chr22", row.names = F, quote = F)
 
-setwd("/Users/aa9gj/Documents/BPG_project/test_enrichment_in_r/lead_ld_position_by_chr/")
+setwd("lead_ld_position_by_chr/")
 my_files <- fread('chromosomes',header=FALSE)
 my_data <- list()
 for (i in seq_along(my_files$V1)) {
@@ -228,7 +228,7 @@ vsea_lead_sqtl_full <- as.data.frame(unique(events_hfob_coloc$V7))
 colnames(vsea_lead_sqtl_full) <- "rsid"
 lead_sqtl_annotated <- inner_join(vsea_lead_sqtl_full, lead_sqtl_and_proxy, by = c('rsid' = "V4"))
 length(unique(lead_sqtl_annotated$rsid))
-ch <- import.chain("/Users/aa9gj/Documents/BPG_project/test_enrichment_in_r/hg38ToHg19.over.chain")
+ch <- import.chain("hg38ToHg19.over.chain")
 cur <- makeGRangesFromDataFrame(lead_sqtl_annotated, keep.extra.columns = TRUE, start.field = "V3", end.field = "V3", seqnames.field = "V1", na.rm = T)
 seqlevelsStyle(cur) = "UCSC"  # necessary
 cur19 = liftOver(cur, ch)
@@ -251,12 +251,12 @@ bg_variants$end <- bg_variants$start
 bg_variants$seqnames <- paste0(bg_variants$chr, bg_variants$seqname)
 bg_variants_gr <- makeGRangesFromDataFrame(bg_variants, keep.extra.columns = TRUE, start.field = "start", end.field = "end", seqnames.field = "seqnames", na.rm = T)
 #automate_sf_bind
-meta_eclip <- fread("/Users/aa9gj/Documents/BPG_project/test_enrichment_in_r/metadata.tsv")
+meta_eclip <- fread("metadata.tsv")
 meta_eclip <- meta_eclip[, c(1,3,11, 23)]
 meta_eclip$`Experiment target` <- gsub("-human", "", meta_eclip$`Experiment target`)
 colnames(meta_eclip) <- c("eclip_id", "type", "celltype" ,"gene")
 ## how many SF in our samples
-yeo_nature <- fread("/Users/aa9gj/Documents/BPG_project/Actual_SFs_from_yeo.txt", header = F)
+yeo_nature <- fread("Actual_SFs_from_yeo.txt", header = F)
 hfob_coloc_yeo_all <- genes_in_hfobs_and_coloc[which(genes_in_hfobs_and_coloc$gene_name %in% yeo_nature$V1),]
 yeo_eclip <- inner_join(meta_eclip, yeo_nature, by = c("gene" = "V1"))
 length(unique(yeo_eclip$gene))
@@ -266,7 +266,7 @@ eclip_sf_ids <- as.data.frame(yeo_eclip$eclip_id)
 colnames(eclip_sf_ids) <- "id"
 list_enrich <- list()
 for (i in 1:nrow(eclip_sf_ids)) {
-  splice_factor <- fread(paste0("/Users/aa9gj/Documents/BPG_project/test_enrichment_in_r/liftedhg38tohg19_bed_eclip/",eclip_sf_ids[i,],"_lift.bed"))
+  splice_factor <- fread(paste0("/liftedhg38tohg19_bed_eclip/",eclip_sf_ids[i,],"_lift.bed"))
   splice_factor_gr <- makeGRangesFromDataFrame(splice_factor, keep.extra.columns = TRUE,
                                                start.field = "V2", end.field = "V3", seqnames.field = "V1", ignore.strand = T)
   sqtl_set <- sqtl_overlap_SF_binding(cur19, splice_factor_gr)
@@ -292,8 +292,8 @@ length(unique(sig_sf$SF))
 length(unique(enrich_df$SF))
 
 enrich_df$fdr <- p.adjust(enrich_df$p_value, method = "fdr", n = nrow(enrich_df))
-write.table(enrich_df, "/Users/aa9gj/Documents/BPG_project/test_enrichment_in_r/enrich_df", row.names = F, quote = F)
-enrich_df <- fread("/Users/aa9gj/Documents/BPG_project/test_enrichment_in_r/enrich_df")
+write.table(enrich_df, "enrich_df", row.names = F, quote = F)
+enrich_df <- fread("enrich_df")
 sig_sf_FDR <- filter(enrich_df, fdr < 0.05)
 length(unique(sig_sf_FDR$SF))
 in_coloc_hfob <- as.data.frame(unique(events_hfob_coloc$gene_name.y))
