@@ -11,13 +11,13 @@ p <- c("plyranges","GenomicRanges", "maser", "rtracklayer", "data.table", "tidyv
 lapply(p, require, character.only = TRUE)
 
 # Normalize counts
-CountData <- read.csv("/Users/aa9gj/Documents/BPG_project/Materials_for_paper/aug2022_reanalysis/counts_cupcake.mapped_fl_count.txt", row.names = 1)
+CountData <- read.csv("counts_cupcake.mapped_fl_count.txt", row.names = 1)
 colnames(CountData) <- c("t0a", "t0c","t10a","t10b","t10c","t2a", "t2b", "t2c","t4a","t4b","t4c")
-ColData <- read.table("/Users/aa9gj/Documents/BPG_project/Materials_for_paper/Long_read_analysis_Jan2022/phenotypes.txt", row.names = 1, header = T)
+ColData <- read.table("phenotypes.txt", row.names = 1, header = T)
 CountData$total_counts <- rowSums(CountData)
 #Bring in sqanti classification file
-sqanti <- fread("/Users/aa9gj/Documents/BPG_project/Materials_for_paper/aug2022_reanalysis/SQANTI3_results_full_classification.txt")
-gencodev38 <- as.data.frame(rtracklayer::import("/Users/aa9gj/Documents/BPG_project/Materials_for_paper/gencode.v38.annotation.gtf"))
+sqanti <- fread("SQANTI3_results_full_classification.txt")
+gencodev38 <- as.data.frame(rtracklayer::import("gencode.v38.annotation.gtf"))
 # Keep only genes, remove any other categories (aka exon, transcript etc)
 gencodev38 <- filter(gencodev38, type == "gene")
 gene_count_lr <- setDT(CountData, keep.rownames = TRUE)[]
@@ -95,10 +95,10 @@ genic <- filter(criteria1_3, structural_category == "genic")
 NIC <- filter(criteria1_3, structural_category == "novel_in_catalog")
 NNC <- filter(criteria1_3, structural_category == "novel_not_in_catalog")
 
-# doing CPM but basically it is TPM given that we are using isoforms to do plots and such
-CountData <- read.csv("/Users/aa9gj/Documents/BPG_project/Materials_for_paper/aug2022_reanalysis/counts_cupcake.mapped_fl_count.txt", row.names = 1)
+# doing CPM but basically it is TPM given that we are using isoforms
+CountData <- read.csv("counts_cupcake.mapped_fl_count.txt", row.names = 1)
 colnames(CountData) <- c("t0a", "t0c","t10a","t10b","t10c","t2a", "t2b", "t2c","t4a","t4b","t4c")
-ColData <- read.table("/Users/aa9gj/Documents/BPG_project/Materials_for_paper/Long_read_analysis_Jan2022/phenotypes.txt", row.names = 1, header = T)
+ColData <- read.table("phenotypes.txt", row.names = 1, header = T)
 reorder_idx <- match(rownames(ColData),colnames(CountData))
 # Reorder the columns of the count data
 CountData <- CountData[ , reorder_idx]
