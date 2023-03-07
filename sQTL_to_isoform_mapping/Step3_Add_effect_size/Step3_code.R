@@ -1,6 +1,6 @@
 # adding effect size 
-
-morris <- fread("/Users/aa9gj/Documents/BPG_project/Mirrorplots_data_code_results/Morris_data/morris_snps_bychr/chr22.morris.gwas.snps")
+# Ensure that you run this in a loop, this is just an example for chromosome 22
+morris <- fread("chr22.morris.gwas.snps")
 prep_gwas <- function(x) {
   x$V1 <- gsub("chr", "", x$V1)
   x<-x[order(x$V16, decreasing = F),]
@@ -10,7 +10,7 @@ gwas <- prep_gwas(morris)
 colnames(gwas) <- c("seqnames", "start", "end", "width", "strand", "SNPID", "rsid", "EA","NEA","EAF","INFO","BETA","SE","P.nominal","P.I","P.bmd","N","maf","ID")
 
 
-gtex_lookup <- fread("/Users/aa9gj/Documents/BPG_project/Mirrorplots_data_code_results/Gtex_lookup/GTEx_lookup_table_bychr/chr22.gtex.lookup.txt")
+gtex_lookup <- fread("chr22.gtex.lookup.txt")
 
 # get the lowest and then the second lowest rsid and pvalue
 prep_sqtl <- function(x,y) {
@@ -21,8 +21,8 @@ prep_sqtl <- function(x,y) {
 }
 
 my_snps <- list()
-event_files <- fread("/Users/aa9gj/Documents/BPG_project/Mirrorplots_data_code_results/event_snps/event_with_sig_colocalization/chr22.events", header = F)
-setwd("/Users/aa9gj/Documents/BPG_project/Mirrorplots_data_code_results/event_snps/event_with_sig_colocalization/all_events_snps")
+event_files <- fread("chr22.events", header = F)
+setwd("all_events_snps")
 for (i in seq_along(event_files$V1)) {
   my_snps[[i]] <- fread(event_files$V1[i])
   my_snps[[i]] <- prep_sqtl(my_snps, gtex_lookup)
@@ -32,14 +32,13 @@ for (i in seq_along(event_files$V1)) {
   print(i)
 }
 
-#write this as a loop to get all the chromosomes (see example chr1)
-chr1_events <- as.data.frame(do.call("rbind", my_snps))
+chr22_events <- as.data.frame(do.call("rbind", my_snps))
 
-write.table(chr1_events, "/Users/aa9gj/Documents/BPG_project/chr_events_for_effect_sizes/sQTL/chr1_events_effect", row.names = F, quote = F)
+write.table(chr1_events, "chr22_events_effect", row.names = F, quote = F)
 
 eventslist <- list()
-event_files <- fread("/Users/aa9gj/Documents/BPG_project/chr_events_for_effect_sizes/event_files", header = F)
-setwd("/Users/aa9gj/Documents/BPG_project/chr_events_for_effect_sizes/sQTL/")
+event_files <- fread("chr_events_for_effect_sizes/event_files", header = F)
+setwd("chr_events_for_effect_sizes/sQTL/")
 for (i in seq_along(event_files$V1)) {
   eventslist[[i]] <- fread(event_files$V1[i])
 }
