@@ -6,18 +6,24 @@
 ###########################################################################
 ###########################################################################
 
+# Where do I get these files to run this code? 
+# Download the following files from the Zenodo repo (event_with_effect_size; SNP_bed/chr22; chr22_sqtl_and_ld_df, SQANTI3_results_full_corrected_chr_only.gtf)
+# Download GENCODE v26 from GENCODE (Needed for GTEx data, please refer to this https://www.gtexportal.org/home/faq#geneModel)
+
+
 event_with_effect_size <- fread("event_with_effect_size")
 event_with_effect_size <- separate(event_with_effect_size, phenotype_id, c("chr", "start", "end", "cluster", "gene_id"), sep = ":")
+
 gencode_v26 <- as.data.frame(rtracklayer::import('gencode.v26.annotation.gtf'))
 gencode_v26 <- filter(gencode_v26, type == "gene", gene_type == "protein_coding")
 gencode_v26 <- gencode_v26[,c("gene_id", "gene_name")]
+
 event_with_effect_size <- left_join(event_with_effect_size, gencode_v26, by = "gene_id")
 event_with_effect_size$event_id <- paste0(event_with_effect_size$chr, "_", event_with_effect_size$start, "_", event_with_effect_size$end, "_", event_with_effect_size$gene_name)
-length(unique(event_with_effect_size$event_id))
-
 events_hfob_coloc <- inner_join(exact_overlap, event_with_effect_size, by = "event_id")
 
 # Now create the SNPs and their LD proxy (example here is for chr22, run a loop for all chromosomes)
+# This process takes a long time and the results are in the Zenodo repo, however, you can run this by downloading input files from Zenodo
 chr22_lead_sqtl <- dplyr::filter(events_hfob_coloc, chr == "chr22")
 chr22_bed <- fread("SNP_bed/chr22")
 chr22_lead_sqtl_pos <- inner_join(chr22_bed, chr22_lead_sqtl, by = c("V4" = "V7"))
@@ -37,6 +43,7 @@ myFun <- function(data) {
 }
 chr22_sqtl_and_LD_df <- myFun(chr22_sqtl_and_LD_df)
 write.table(chr22_sqtl_and_LD_df, "chr22_sqtl_and_ld_df", row.names = F, quote = F)
+# Keep only LD of more or equal to 0.80 (High LD)
 chr22_sqtl_and_LD_df <- filter(chr22_sqtl_and_LD_df, r2 >= 0.80)
 chr22_sqtl_no_snps_LD <- as.data.frame(chr22_lead_sqtl_pos[which(!(chr22_lead_sqtl_pos$V4 %in% chr22_sqtl_and_LD_df$variation1)),])
 
@@ -61,10 +68,12 @@ chr22_lead_LD_pos <- distinct(chr22_lead_LD_pos)
 chr22_proxy_pos <- chr22_sqtl_LD_pos[,c("V1", "V2", "V3", "V4", "r2", "d_prime", "variation1")]
 chr22_proxy_pos <- distinct(chr22_proxy_pos)
 
+# Some lead SNPs do not have any proxies of more or equal to 0.80, still keep them
 chr22_lead_no_LD_pos <- right_join(chr22_bed, chr22_lead_no_LD, by = c("V4" = "rsid"))
 chr22_lead_no_LD_pos <- chr22_lead_no_LD_pos[,c(1:4)]
 chr22_lead_no_LD_pos <- distinct(chr22_lead_no_LD_pos)
 
+# Overlaps preparation
 event_location <- as.data.frame(unique(chr22_lead_sqtl$event_id))
 colnames(event_location) <- "event"
 event_location <- separate(event_location, "event", c("seq", "start", "end", "gene"), sep = "_")
@@ -84,6 +93,7 @@ sqtl_overlap_introns <- function(x,y) {
   return(olap)
 }
 
+# As file names suggest
 chr22_noLD_lead_overlap <- as.data.frame(sqtl_overlap_introns(chr22_lead_no_LD_pos_gr, event_location_gr))
 chr22_LD_lead_overlap <- as.data.frame(sqtl_overlap_introns(chr22_lead_LD_pos_gr, event_location_gr))
 
@@ -92,8 +102,8 @@ chr22_proxy_wo_overlap_lead_gr <- makeGRangesFromDataFrame(chr22_proxy_wo_overla
                                                            start.field = "V2", end.field = "V3", seqnames.field = "V1", ignore.strand = T)
 chr22_proxy_overlap <- as.data.frame(sqtl_overlap_introns(chr22_proxy_wo_overlap_lead_gr, event_location_gr))
 
-
-##create introns from sqanti gtf file for ssa, ssd overlaps
+# Perform analysis for splice site acceptor and splice site donor overlaps 
+# Create introns from sqanti gtf file for ssa, ssd overlaps
 
 sqanti_gtf <- read_format("SQANTI3_results_full_corrected_chr_only.gtf")
 isoforms_wanted <- as.data.frame(exact_overlap[, "transcript_id"])
@@ -164,15 +174,7 @@ ssa_hits_part1 <- sqtl_overlap_splice_sites(chr22_lead_no_LD_pos_gr, ssa_coord_g
 ssa_hits_part2 <- sqtl_overlap_splice_sites(chr22_lead_LD_pos_gr, ssa_coord_gr)
 ssa_hits_part3 <- sqtl_overlap_splice_sites(chr22_proxy_pos_gr, ssa_coord_gr)
 
-ssd_hits_part1
-ssd_hits_part2
-ssd_hits_part3
-
-ssa_hits_part1
-ssa_hits_part2
-ssa_hits_part3
-
-### # let's do enrichment analysis 
+####### get this fixed up let's do enrichment analysis 
 ## get the lead sQTL and their LD and their positions
 chr22_lead_sqtl <- dplyr::filter(events_hfob_coloc, chr == "chr22")
 chr22_sqtl_and_LD_df <- fread("chr22_sqtl_and_ld_df")
