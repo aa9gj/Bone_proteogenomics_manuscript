@@ -10,7 +10,7 @@ The raw long-read sequencing data is found in [GSE224588](https://www.ncbi.nlm.n
 ### How to use this repository
 
 1. Use setup_r_env.R to set up the R environment with all the needed packages. 
-2. The repo is broken down into three major sections <br>
-..* sQTL_colocalization_analysis
-..* Reference_transcriptome_generation
-..* sQTL_to_isoform_mapping
+2. The repo is broken down into three major sections 
+  - sQTL_colocalization_analysis
+  - Reference_transcriptome_generation
+  - sQTL_to_isoform_mapping
