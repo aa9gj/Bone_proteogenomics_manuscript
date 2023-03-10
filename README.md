@@ -14,15 +14,15 @@ Raw long-read sequencing data is found in [GSE224588](https://www.ncbi.nlm.nih.g
 
 1. Use setup_r_env.R to set up the R environment with all the needed packages. 
 2. The repo is broken down into three major sections: 
-  - **sQTL_colocalization_analysis**: This directory contains code needed to replicate Bayesian colocalization analysis with [Coloc](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004383)
-    - Step 0: Please refer to the README.md within directory for further information
-  - **Reference_transcriptome_generation**
-    - Step 1: Please refer to the README.md within directory for further information
+  - **sQTL_colocalization_analysis**: This directory contains code needed to replicate Bayesian colocalization analysis with [Coloc](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004383). Please refer to the README.md within directory for further information
+    - Step 0:
+  - **Reference_transcriptome_generation**: This directory contains code to generate the reference transcriptome from long-read RNAseq data. Please refer to the README.md within directory for further information
+    - Step 1: description
   - **sQTL_to_isoform_mapping**
     - Step 2: description
     - Step 3: description
-    - Step 4: 
-    - Step 5: 
-    - Step 6:
-    - Step 7: 
+    - Step 4: description
+    - Step 5: description
+    - Step 6: description
+    - Step 7: description
     - Step 8: NMD and truncation analysis was performed using a beta version of [Biosurfer](https://github.com/sheynkman-lab/Biosurfer_BMD_analysis) 
