@@ -7,8 +7,8 @@ The full text can be found in [Abood et al. 2023, BioRxiv](https://www.biorxiv.o
 We present a novel generalizable approach that integrates information from GWAS, splicing QTL (sQTL), and PacBio long-read RNA-seq in a disease relevant model to infer the effects of sQTLs on the ultimate protein isoform products they encode
 
 ### Data availability 
-The data required is found in DOI 10.5281/zenodo.7603851 <br>
-The raw long-read sequencing data is found in [GSE224588](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE224588)
+Processed data is found in DOI 10.5281/zenodo.7603851 <br>
+Raw long-read sequencing data is found in [GSE224588](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE224588)
 
 ### How to use this repository
 
