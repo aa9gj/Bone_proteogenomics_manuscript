@@ -1,4 +1,6 @@
-## Code accompanying the manuscript *Long read proteogenomics to connect disease-associated sQTLs to the protein isoform effectors in disease* by Abood et al. as seen on *BioRxiv* 
+## Code accompanying the manuscript *"Long read proteogenomics to connect disease-associated sQTLs to the protein isoform effectors in disease"* 
+
+The full text can be found in [Abood et al. 2023, BioRxiv](https://www.biorxiv.org/) 
 
 
 The data required is found in DOI 10.5281/zenodo.7603851 <br>
@@ -7,4 +9,8 @@ The raw long-read sequencing data is found in [GSE224588](https://www.ncbi.nlm.n
 
 ### How to use this repository
 
-Use setup_r_env.R to be set up the R environment with all the needed packages 
+1. Use setup_r_env.R to set up the R environment with all the needed packages. 
+2. The repo is broken down into three major sections
+..1. sQTL_colocalization_analysis
+..2. Reference_transcriptome_generation
+..3. sQTL_to_isoform_mapping
