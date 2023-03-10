@@ -24,4 +24,5 @@ Raw long-read sequencing data is found in [GSE224588](https://www.ncbi.nlm.nih.g
     - Step 4: 
     - Step 5: 
     - Step 6:
-    - Step 7: Code for this analysis can be found in 
+    - Step 7: 
+    - Step 8: NMD and truncation analysis was performed using a Beta version of [Biosurfer](https://github.com/sheynkman-lab/Biosurfer_BMD_analysis) 
