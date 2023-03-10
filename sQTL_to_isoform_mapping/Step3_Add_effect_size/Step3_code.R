@@ -1,4 +1,7 @@
-# adding effect size 
+#
+
+
+# Adding effect size from both GTEx summary stats and GWAS summary stats. This should be done in a loop and takes a long time.  
 # Ensure that you run this in a loop, this is just an example for chromosome 22
 morris <- fread("chr22.morris.gwas.snps")
 prep_gwas <- function(x) {
