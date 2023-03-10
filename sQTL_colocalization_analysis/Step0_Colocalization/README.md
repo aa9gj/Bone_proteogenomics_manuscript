@@ -1,4 +1,4 @@
-Step 0: Generation of disease relevant sQTL associations
+### Step 0: Generation of disease relevant sQTL associations
 
 1) Download sQTL V8 data for all associations from GTEx using https://console.cloud.google.com/storage/browser/gtex-resources
 
