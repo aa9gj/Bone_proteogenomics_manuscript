@@ -6,7 +6,8 @@
 ###########################################################################
 ###########################################################################
 
-event_with_effect_size <- fread("/Users/aa9gj/Documents/BPG_project/Materials_for_paper/too_long_to_generate_files/event_with_effect_size")
+
+event_with_effect_size <- fread("event_with_effect_size")
 event_with_effect_size <- separate(event_with_effect_size, phenotype_id, c("chr", "start", "end", "cluster", "gene_id"), sep = ":")
 gencode_v26 <- as.data.frame(rtracklayer::import('/Users/aa9gj/Documents/BPG_project/Materials_for_paper/gencode.v26.annotation.gtf'))
 gencode_v26 <- filter(gencode_v26, type == "gene", gene_type == "protein_coding")
