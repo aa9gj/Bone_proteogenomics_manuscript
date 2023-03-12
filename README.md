@@ -23,6 +23,5 @@ Raw long-read sequencing data is found in [GSE224588](https://www.ncbi.nlm.nih.g
     - Step 3: Add effect size and direction of effect to colocalized junctions
     - Step 4: Annotate lead sQTLs and their proxy, follow with positional and enrichment analyses
     - Step 5: Differential analyses (DE and DIU) using tappAS
-    - Step 6: description
-    - Step 7: description
-    - Step 8: NMD and truncation analysis was performed using a beta version of [Biosurfer](https://github.com/sheynkman-lab/Biosurfer_BMD_analysis) 
+    - Step 6: Prioritization scheme
+    - Step 7: ORF analyses including: NMD and truncation analysis was performed using a beta version of [Biosurfer](https://github.com/sheynkman-lab/Biosurfer_BMD_analysis) 
