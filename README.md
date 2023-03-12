@@ -20,7 +20,7 @@ Raw long-read sequencing data is found in [GSE224588](https://www.ncbi.nlm.nih.g
     - Step 1: Perform analyses on outputs from SQANTI and cDNA_cupcake
   - **sQTL_to_isoform_mapping**
     - Step 2: Characterize full-length isoforms (known and novel) containing the colocalized junctions
-    - Step 3: description
+    - Step 3: Add effect size and direction of effect to colocalized junctions
     - Step 4: description
     - Step 5: description
     - Step 6: description
