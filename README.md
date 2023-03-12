@@ -19,7 +19,7 @@ Raw long-read sequencing data is found in [GSE224588](https://www.ncbi.nlm.nih.g
   - **Reference_transcriptome_generation**: This directory contains code to generate the reference transcriptome from long-read RNAseq data. Please refer to the README.md within directory for further information
     - Step 1: Perform analyses on outputs from SQANTI and cDNA_cupcake
   - **sQTL_to_isoform_mapping**
-    - Step 2: description
+    - Step 2: Characterize full-length isoforms (known and novel) containing the colocalized junctions
     - Step 3: description
     - Step 4: description
     - Step 5: description
