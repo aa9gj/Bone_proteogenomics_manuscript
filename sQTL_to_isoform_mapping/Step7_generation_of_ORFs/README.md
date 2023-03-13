@@ -8,7 +8,6 @@
 We relied heavily on the already published [long-read proteogenomics (LRP) pipeline](https://github.com/sheynkman-lab/Long-Read-Proteogenomics) (with some modifications explained in the associated R code (Step7)
 
 1. cpat_step (LRP)
-2. make pb_gene from sqanti and cupcake output (R code)
-3. orf_calling (LRP)
-4. refinement (LRP)
-5. make_cds (LRP)
+2. orf_calling (LRP)
+3. refinement (LRP)
+4. make_cds (LRP)
