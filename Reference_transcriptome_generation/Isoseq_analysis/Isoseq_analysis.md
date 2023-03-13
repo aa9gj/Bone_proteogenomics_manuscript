@@ -11,6 +11,7 @@ isoseq3 refine $lima_ouput_file barcodes.fasta output_file.flnc.bam --require-po
 ```
 4. Cluster using isoseq cluster module using hierarchical n*log(n) alignment and iterative cluster merging and then Polished POA sequence generation, using a QV guided consensus approach
 ```shell
+isoseq3 cluster flnc.fofn clustered.bam --verbose --use-qvs -j 40
 ```
 5. Generate raw isoforms counts post clustering using cDNA_cupcake module (demux_isoseq_with_genome.py)
 ```shell
