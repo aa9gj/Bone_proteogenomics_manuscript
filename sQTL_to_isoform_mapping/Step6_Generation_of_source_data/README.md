@@ -1,4 +1,2 @@
 ### Where do I get these files to run this code? 
-1. Download the following files from the Zenodo repo (coloc_annot_results; SQANTI3_results_full_corrected_chr_only.gtf, morris_lead_snps_hg19.txt)
-2. Download GENCODE v38 gtf file from GENCODE
-3. Download hg19ToHg38.over.chain from UCSC (chain file for liftOver)
+1. Download the following files from the Zenodo repo (abnormal_bone_mineral_density.tsv, BANs.csv, eqtl.txt, monogenic_bone)
