@@ -12,5 +12,5 @@
 
 6) Now you have the genes that are within a 400kb window of each eBMD GWAS locus. We have to get the snps that are within a 400kb window of each gene using this script for each tissue SNP_retrieval_v2.py
 
-7) Once that's done, separate those snps files based on chromosome to be able to use coloc to perform the colocalization analysis using test_auto_coloc.R wrapped in coloc_per_tissue_analysis.R
+7) Once that's done, separate those snps files based on chromosome to be able to use coloc to perform the colocalization analysis using coloc_per_tissue_analysis.R wrapped in coloc_per_tissue_analysis.slurm
 
