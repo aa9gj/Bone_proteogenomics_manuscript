@@ -9,9 +9,11 @@ We relied heavily on the already published [long-read proteogenomics (LRP) pipel
 
 1. cpat_step (LRP)
 ```shell
+cpat.py -x Human_Hexamer.tsv -d Human_logitModel.RData -g SQANTI3_results_full_corrected.fasta --min-orf=30 -o cpat_out_30minorf
 ```
 2. orf_calling (LRP)
 ```shell
+orf_calling_new.py --orf_coord cpat_out_30minorf.ORF_prob.tsv --orf_fasta cpat_out_30minorf.ORF_seqs.fa --gencode gencode.v38.annotation.gtf --sample_gtf SQANTI3_results_full_corrected.gtf --pb_gene pb_gene.tsv --classification SQANTI3_results_full_classification.txt --sample_fasta SQANTI3_results_full_corrected.fasta --output osteo_cpat.30minorf_ORF_called.tsv
 ```
 3. refinement (LRP)
 ```shell
