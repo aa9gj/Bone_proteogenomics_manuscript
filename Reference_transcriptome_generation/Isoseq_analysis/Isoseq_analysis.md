@@ -22,7 +22,11 @@ demux_isoseq_with_genome.py --mapped_fafq --read_stat --classify_csv merged_flnc
 ```shell
 pbmm2 align clustered.bam GRCh38.primary_assembly.genome.mmi aligned_sorted.bam --preset ISOSEQ --sort
 ```
-7. Perform isoform classification using [SQANTI3](https://github.com/ConesaLab/SQANTI3) 
+7. Collapse redundant transcripts (based on exonic structures) into unique isoforms using isoseq3 [collapse module](https://isoseq.how/classification/isoseq-collapse.html)
+```shell
+isoseq3 collapse aligned_sorted.bam new_all_transcriptome.gff
+```
+8. Perform isoform classification using [SQANTI3](https://github.com/ConesaLab/SQANTI3) 
 ```shell
 sqanti3_qc.py --fasta .fasta gencode.v38.annotation.gtf GRCh38.primary_assembly.genome.fa --skipORF -o SQANTI3_results_full --fl transcriptome.abundance.txt
 ```
