@@ -4,7 +4,7 @@
 3. Download hg19ToHg38.over.chain from UCSC (chain file for liftOver)
 
 
-### Calling open reading frames (ORF)
+### Calling open reading frames (ORFs)
 We relied heavily on the already published [long-read proteogenomics (LRP) pipeline](https://github.com/sheynkman-lab/Long-Read-Proteogenomics) (with some modifications explained in the associated R code (Step7)
 
 1. cpat_step (LRP)
