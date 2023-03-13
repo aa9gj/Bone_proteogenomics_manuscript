@@ -4,6 +4,4 @@
 
 1. GENCODE: Downloaded GENCODE comprehensive GTF version 38: https://www.gencodegenes.org/human/release_38.html
 2. hFOB transcriptome/proteome: isoforms with exact match in the hFOB data
-3. Colocalized sQTLs: BED file that contains a list of junction coordinates from colocalization analysis of BMD GWAS against 49 GTEX sQTLs. This file has annotations in terms of source tissue/coloc. probability, etc.
-
-
+3. Colocalized sQTLs: contains a list of junction coordinates from colocalization analysis of BMD GWAS against 49 GTEX sQTLs.
