@@ -17,7 +17,9 @@ orf_calling_new.py --orf_coord cpat_out_30minorf.ORF_prob.tsv --orf_fasta cpat_o
 ```
 3. refinement (LRP)
 ```shell
+refine_orf_database.py --name hfobs --orfs osteo_cpat.30minorf_ORF_called.tsv --pb_fasta SQANTI3_results_full_corrected.fasta --coding_score_cutoff 0.0
 ```
 4. make_cds (LRP)
 ```shell
+make_cds_gtf_new.py --name hfob_CDS_with_transcripts_min30orf --sample_gtf SQANTI3_results_full_corrected.gtf --refined_database hfobs_orf_refined.tsv --called_orfs osteo_cpat.30minorf_ORF_called.tsv --pb_gene pb_gene.tsv --include_transcript yes
 ```
