@@ -174,7 +174,6 @@ ssa_hits_part1 <- sqtl_overlap_splice_sites(chr22_lead_no_LD_pos_gr, ssa_coord_g
 ssa_hits_part2 <- sqtl_overlap_splice_sites(chr22_lead_LD_pos_gr, ssa_coord_gr)
 ssa_hits_part3 <- sqtl_overlap_splice_sites(chr22_proxy_pos_gr, ssa_coord_gr)
 
-####### get this fixed up let's do enrichment analysis 
 ## get the lead sQTL and their LD and their positions
 chr22_lead_sqtl <- dplyr::filter(events_hfob_coloc, chr == "chr22")
 chr22_sqtl_and_LD_df <- fread("chr22_sqtl_and_ld_df")
@@ -224,7 +223,7 @@ sqtl_overlap_SF_binding <- function(x,y) {
                       y[subjectHits(hits)])
   return(olap)
 }
-
+# perfrom liftover to match hg19 coordinates in eclip db
 library(vsea)
 vsea_lead_sqtl_full <- as.data.frame(unique(events_hfob_coloc$V7))
 colnames(vsea_lead_sqtl_full) <- "rsid"
@@ -241,6 +240,8 @@ cur19_df <- as.data.frame(cur19)
 cur19_df$seqnames <- gsub("chr", "", cur19_df$seqnames)
 cur19_df <- cur19_df[,c(1,3)]
 cur19_df <- paste0(cur19_df$seqnames, ":", cur19_df$end)
+
+# create background variants using SNPSNAP
 snpsnap <- read_snpsnap(population = c("EUR"))
 bg_variants <- select_background_variants(cur19_df, snpsnap, bg_size = 1)
 bg_variants <- bg_variant[!is.na(bg_variants)]
@@ -258,7 +259,7 @@ meta_eclip <- meta_eclip[, c(1,3,11, 23)]
 meta_eclip$`Experiment target` <- gsub("-human", "", meta_eclip$`Experiment target`)
 colnames(meta_eclip) <- c("eclip_id", "type", "celltype" ,"gene")
 ## how many SF in our samples
-yeo_nature <- fread("Actual_SFs_from_yeo.txt", header = F)
+yeo_nature <- fread("SF_list_van_nostrand.txt", header = F)
 hfob_coloc_yeo_all <- genes_in_hfobs_and_coloc[which(genes_in_hfobs_and_coloc$gene_name %in% yeo_nature$V1),]
 yeo_eclip <- inner_join(meta_eclip, yeo_nature, by = c("gene" = "V1"))
 length(unique(yeo_eclip$gene))
@@ -290,15 +291,5 @@ for (i in 1:nrow(eclip_sf_ids)) {
 enrich_df <- as.data.frame(do.call("rbind", list_enrich))
 enrich_df <- separate(enrich_df, "V1", c("p_value", "SF", "cell"), sep = ",")
 sig_sf <- filter(enrich_df, p_value < 0.05)
-length(unique(sig_sf$SF))
-length(unique(enrich_df$SF))
-
 enrich_df$fdr <- p.adjust(enrich_df$p_value, method = "fdr", n = nrow(enrich_df))
-write.table(enrich_df, "enrich_df", row.names = F, quote = F)
-enrich_df <- fread("enrich_df")
 sig_sf_FDR <- filter(enrich_df, fdr < 0.05)
-length(unique(sig_sf_FDR$SF))
-in_coloc_hfob <- as.data.frame(unique(events_hfob_coloc$gene_name.y))
-colnames(in_coloc_hfob) <- "gene"
-enrich_df$SF <- gsub(" ", "", enrich_df$SF)
-in_coloc_hfob_enrich <- inner_join(enrich_df, in_coloc_hfob, by = c("SF" = "gene"))
