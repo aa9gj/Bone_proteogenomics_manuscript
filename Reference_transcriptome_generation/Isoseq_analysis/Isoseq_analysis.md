@@ -5,15 +5,15 @@
 ```shell
 lima ccs.bam primer.fasta demux.bam --isoseq --split-bam-named --peek-guess
 ```
-3. Refine using isoseq refine module to trim of poly(A) tails and perform rapid concatemer identification and removal
+3. Refine using isoseq [refine module](https://isoseq.how/getting-started.html) to trim of poly(A) tails and perform rapid concatemer identification and removal
 ```shell
 isoseq3 refine $lima_ouput_file barcodes.fasta output_file.flnc.bam --require-polya -j 8
 ```
-4. Cluster using isoseq cluster module using hierarchical n*log(n) alignment and iterative cluster merging and then Polished POA sequence generation, using a QV guided consensus approach
+4. Cluster using isoseq [cluster module](https://isoseq.how/getting-started.html) using hierarchical n*log(n) alignment and iterative cluster merging and then Polished POA sequence generation, using a QV guided consensus approach
 ```shell
 isoseq3 cluster flnc.fofn clustered.bam --verbose --use-qvs -j 40
 ```
-5. Generate raw isoforms counts post clustering using cDNA_cupcake module (demux_isoseq_with_genome.py)
+5. Generate raw isoforms counts post clustering using [cDNA_cupcake](https://github.com/Magdoll/cDNA_Cupcake) module demux_isoseq_with_genome.py
 ```shell
 ml anaconda/2020.11-py3.8
 export PATH=$PATH:/cDNA_Cupcake/sequence/
