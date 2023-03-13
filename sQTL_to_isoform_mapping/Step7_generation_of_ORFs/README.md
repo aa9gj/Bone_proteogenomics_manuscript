@@ -8,6 +8,14 @@
 We relied heavily on the already published [long-read proteogenomics (LRP) pipeline](https://github.com/sheynkman-lab/Long-Read-Proteogenomics) (with some modifications explained in the associated R code (Step7)
 
 1. cpat_step (LRP)
+```shell
+```
 2. orf_calling (LRP)
+```shell
+```
 3. refinement (LRP)
+```shell
+```
 4. make_cds (LRP)
+```shell
+```
