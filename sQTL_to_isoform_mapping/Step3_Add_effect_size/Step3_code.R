@@ -1,9 +1,9 @@
 # Where do I get these files to run this code? 
-# Download the following files from the Zenodo repo (chr22.morris.gwas.snps; chr22.gtex.lookup.txt, chr22.events)
+# Download the following files from the Zenodo repo (Morris_data/chr22.morris.gwas.snps; Gtex_lookup/chr22.gtex.lookup.txt, event_snps/chr22.events)
 
 # Adding effect size from both GTEx summary stats and GWAS summary stats. This should be done in a loop and takes a long time.  
 # Ensure that you run this in a loop, this is just an example for chromosome 22
-morris <- fread("chr22.morris.gwas.snps")
+morris <- fread("Morris_data/chr22.morris.gwas.snps")
 prep_gwas <- function(x) {
   x$V1 <- gsub("chr", "", x$V1)
   x<-x[order(x$V16, decreasing = F),]
@@ -11,7 +11,7 @@ prep_gwas <- function(x) {
 }
 gwas <- prep_gwas(morris)
 colnames(gwas) <- c("seqnames", "start", "end", "width", "strand", "SNPID", "rsid", "EA","NEA","EAF","INFO","BETA","SE","P.nominal","P.I","P.bmd","N","maf","ID")
-gtex_lookup <- fread("chr22.gtex.lookup.txt")
+gtex_lookup <- fread("Gtex_lookup/chr22.gtex.lookup.txt")
 
 # Get the lowest and then the second lowest rsid and pvalue and find out the difference
 prep_sqtl <- function(x,y) {
@@ -22,7 +22,7 @@ prep_sqtl <- function(x,y) {
 }
 
 my_snps <- list()
-event_files <- fread("chr22.events", header = F)
+event_files <- fread("all_events_snps/chr22.events", header = F)
 setwd("all_events_snps")
 for (i in seq_along(event_files$V1)) {
   my_snps[[i]] <- fread(event_files$V1[i])
@@ -34,7 +34,7 @@ for (i in seq_along(event_files$V1)) {
 }
 
 chr22_events <- as.data.frame(do.call("rbind", my_snps))
-# This data is fully available on Zenodo
+# This data is fully available on Zenodo so you don't have to run the code above to get it but it is there for your consideration. 
 write.table(chr22_events, "chr22_events_effect", row.names = F, quote = F)
 
 # Once you generate all chr??_events you can run this
