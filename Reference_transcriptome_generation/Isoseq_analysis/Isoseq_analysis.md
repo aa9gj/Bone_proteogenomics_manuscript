@@ -3,6 +3,7 @@
 1. Raw reads can be found in GEO ([GSE224588](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE224588)). Please allocate enough space for download. 
 2. Primer removal and demultiplexing analysis using [lima](https://lima.how/) and the list of barcodes provided in (file name)
 ```shell
+lima ccs.bam primer.fasta demux.bam --isoseq --split-bam-named --peek-guess
 ```
 3. Refine using isoseq refine module to trim of poly(A) tails and perform rapid concatemer identification and removal
 ```shell
