@@ -6,6 +6,7 @@
 ```
 3. Refine using isoseq refine module to trim of poly(A) tails and perform rapid concatemer identification and removal
 ```shell
+isoseq3 refine $lima_ouput_file barcodes.fasta output_file.flnc.bam --require-polya -j 8
 ```
 4. Cluster using isoseq cluster module using hierarchical n*log(n) alignment and iterative cluster merging and then Polished POA sequence generation, using a QV guided consensus approach
 ```shell
