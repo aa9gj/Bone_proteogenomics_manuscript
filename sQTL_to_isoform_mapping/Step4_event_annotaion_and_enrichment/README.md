@@ -4,4 +4,4 @@
 2. Download GENCODE v26 from GENCODE (Needed for GTEx data, please refer to [GTEx FAQ](https://www.gtexportal.org/home/faq#geneModel)
 3. Download hg38ToHg19.over.chain from UCSC
 
-### Generating this data takes a long time, so you can skip generating the data yourself and download chr_sqtl_ld.zip file on Zenodo
+### Generating this data takes a long time, so you can skip generating the data yourself and download *chr_sqtl_ld.zip* file on Zenodo
