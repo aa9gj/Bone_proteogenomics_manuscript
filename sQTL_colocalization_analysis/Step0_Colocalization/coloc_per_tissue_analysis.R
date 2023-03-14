@@ -19,7 +19,7 @@ morris_id <- morris_id[!duplicated(morris_id$V7),]
 
 gtex_id <- fread(file = gtex, header = FALSE)
 
-setwd("/scratch/aa9gj/wrk/sQTL_GTEx_Data/GTEx_sqtl_data/analysis_output_by_tissue/snps/Cells_Cultured_fibroblasts_snps")
+setwd("snps/Cells_Cultured_fibroblasts_snps")
 my_files <- fread(snps,header=FALSE)
 my_data <- list()
 for (i in seq_along(my_files$V1)) {
@@ -43,5 +43,5 @@ for (i in seq_along(my_files$V1)) {
 
 df <- as.data.frame(do.call("rbind", summary_list))
 df$event <- my_files$V1
-setwd("/scratch/aa9gj/wrk/sQTL_GTEx_Data/GTEx_sqtl_data/analysis_output_by_tissue/coloc_analysis/Cells_Cultured_fibroblasts_coloc")
+setwd("Cells_Cultured_fibroblasts_coloc")
 write.table(df, file = coloc_res, row.names = FALSE, col.names = FALSE, quote=FALSE, sep = "\t")
