@@ -11,12 +11,12 @@
 #SBATCH --array=1-22
 
 i=$SLURM_ARRAY_TASK_ID
-line=$(sed -n "${i}{p;}" < morris_snp_paths)
-mine=$(sed -n "${i}{p;}" < gtex_files_path)
-fine=$(sed -n "${i}{p;}" < /scratch/aa9gj/wrk/sQTL_GTEx_Data/GTEx_sqtl_data/analysis_output_by_tissue/snps/Cells_Cultured_fibroblasts_snps/snp_files)
-wine=$(sed -n "${i}{p;}" < chr_ids)
-sine=$(sed -n "${i}{p;}" < current_gtex_ids)
-kine=$(sed -n "${i}{p;}" < coloc_list)
+line=$(sed -n "${i}{p;}" < morris_snp_paths) #Where eBMD SNPs files are by chromosome 
+mine=$(sed -n "${i}{p;}" < gtex_files_path) #Where GTEx files are located
+fine=$(sed -n "${i}{p;}" < snps/Cells_Cultured_fibroblasts_snps/snp_files) #list of snp file names
+wine=$(sed -n "${i}{p;}" < chr_ids) #list of chromosme ids (chr1 etc)
+sine=$(sed -n "${i}{p;}" < current_gtex_ids) #list of GTEx chr ids (chr1 etc)
+kine=$(sed -n "${i}{p;}" < coloc_list) #list coloc chr ids (chr1 etc)
 
 module purge
 module load goolf/7.1.0_3.1.4 R/4.0.3
