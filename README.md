@@ -2,6 +2,7 @@
 
 The full text can be found in [Abood et al. 2023, BioRxiv](https://www.biorxiv.org/) 
 
+[![DOI](https://zenodo.org/badge/597128359.svg)](https://zenodo.org/badge/latestdoi/597128359)
 ### Purpose 
 
 We present a novel generalizable approach that integrates information from GWAS, splicing QTL (sQTL), and PacBio long-read RNA-seq in a disease relevant model to infer the effects of sQTLs on the ultimate protein isoform products they encode
