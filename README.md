@@ -19,7 +19,7 @@ We present a novel generalizable approach that integrates information from GWAS,
     - Step 0: Perform bayesian colocalization analysis using summary statistics from the latest [BMD GWAS](https://www.nature.com/articles/s41588-018-0302-x) with summary statistics from sQTL data for all 49 GTEx tissues. 
   - **Reference_transcriptome_generation**: This directory contains code to generate the reference transcriptome from long-read RNAseq data. Please refer to the README.md within directory for further information
     - [Isoseq analysis](https://github.com/aa9gj/Bone_proteogenomics_manuscript/blob/main/Reference_transcriptome_generation/Isoseq_analysis/Isoseq_analysis.md): from raw reads to isoform classification
-    - Step 1: Perform analyses on outputs from SQANTI and cDNA_cupcake
+    - [Step 1](https://github.com/aa9gj/Bone_proteogenomics_manuscript/tree/main/Reference_transcriptome_generation/Step1_Long-read_RNAseq_filtering_in_hFOBs): Perform analyses on outputs from SQANTI and cDNA_cupcake
   - **sQTL_to_isoform_mapping**
     - Step 2: Characterize full-length isoforms (known and novel) containing the colocalized junctions
     - Step 3: Add effect size and direction of effect to colocalized junctions
