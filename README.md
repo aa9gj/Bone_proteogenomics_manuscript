@@ -21,9 +21,9 @@ We present a novel generalizable approach that integrates information from GWAS,
     - [Isoseq analysis](https://github.com/aa9gj/Bone_proteogenomics_manuscript/blob/main/Reference_transcriptome_generation/Isoseq_analysis/Isoseq_analysis.md): from raw reads to isoform classification
     - [Step 1](https://github.com/aa9gj/Bone_proteogenomics_manuscript/tree/main/Reference_transcriptome_generation/Step1_Long-read_RNAseq_filtering_in_hFOBs): Perform analyses on outputs from SQANTI and cDNA_cupcake
   - **sQTL_to_isoform_mapping**
-    - Step 2: Characterize full-length isoforms (known and novel) containing the colocalized junctions
-    - Step 3: Add effect size and direction of effect to colocalized junctions
-    - Step 4: Annotate lead sQTLs and their proxy, follow with positional and enrichment analyses
+    - [Step 2](https://github.com/aa9gj/Bone_proteogenomics_manuscript/tree/main/sQTL_to_isoform_mapping/Step2_sQTL_coloc_res_hFOBs_isoforms): Characterize full-length isoforms (known and novel) containing the colocalized junctions
+    - [Step 3](https://github.com/aa9gj/Bone_proteogenomics_manuscript/tree/main/sQTL_to_isoform_mapping/Step3_Add_effect_size): Add effect size and direction of effect to colocalized junctions
+    - [Step 4](https://github.com/aa9gj/Bone_proteogenomics_manuscript/tree/main/sQTL_to_isoform_mapping/Step4_event_annotaion_and_enrichment): Annotate lead sQTLs and their proxy, follow with positional and enrichment analyses
     - Step 5: Differential analyses (DE and DIU) using tappAS
     - Step 6: Integrating multiple datasets from the literature and within our analyses to prioritize the isoforms for experimental validation
     - Step 7: ORF analyses including: NMD and truncation analysis was performed using a beta version of [Biosurfer](https://github.com/sheynkman-lab/Biosurfer_BMD_analysis) 
