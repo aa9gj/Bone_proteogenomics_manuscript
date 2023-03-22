@@ -16,7 +16,7 @@ We present a novel generalizable approach that integrates information from GWAS,
 1. Use setup_r_env.R to set up the R environment with all the needed packages. 
 2. The repo is broken down into three major sections: 
   - **sQTL_colocalization_analysis**: This directory contains code needed to replicate Bayesian colocalization analysis with [Coloc](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004383). Please refer to the README.md within directory for further information
-    - Step 0: Perform bayesian colocalization analysis using summary statistics from the latest [BMD GWAS](https://www.nature.com/articles/s41588-018-0302-x) with summary statistics from sQTL data for all 49 GTEx tissues. 
+    - [Step 0](https://github.com/aa9gj/Bone_proteogenomics_manuscript/tree/main/sQTL_colocalization_analysis/Step0_Colocalization): Perform bayesian colocalization analysis using summary statistics from the latest [BMD GWAS](https://www.nature.com/articles/s41588-018-0302-x) with summary statistics from sQTL data for all 49 GTEx tissues. 
   - **Reference_transcriptome_generation**: This directory contains code to generate the reference transcriptome from long-read RNAseq data. Please refer to the README.md within directory for further information
     - [Isoseq analysis](https://github.com/aa9gj/Bone_proteogenomics_manuscript/blob/main/Reference_transcriptome_generation/Isoseq_analysis/Isoseq_analysis.md): from raw reads to isoform classification
     - [Step 1](https://github.com/aa9gj/Bone_proteogenomics_manuscript/tree/main/Reference_transcriptome_generation/Step1_Long-read_RNAseq_filtering_in_hFOBs): Perform analyses on outputs from SQANTI and cDNA_cupcake
