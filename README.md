@@ -1,7 +1,7 @@
 [![DOI](https://zenodo.org/badge/597128359.svg)](https://zenodo.org/badge/latestdoi/597128359)
 ## Code accompanying the manuscript *"Long read proteogenomics to connect disease-associated sQTLs to the protein isoform effectors in disease"* 
 
-The full text can be found in [Abood et al. 2023, BioRxiv](https://www.biorxiv.org/content/10.1101/2023.03.17.531557v1) 
+The full text can be found in [Abood et al. 2024, AJGH]([https://www.biorxiv.org/content/10.1101/2023.03.17.531557v1](https://www.cell.com/ajhg/abstract/S0002-9297(24)00227-1)) 
 
 ### Purpose 
 
