@@ -4,3 +4,4 @@
 *.BED
 *.GFF
 *.gff
+.DS_Store
